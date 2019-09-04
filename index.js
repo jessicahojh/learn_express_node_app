@@ -4,8 +4,16 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || "8000";
 
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "pug");
+app.use(express.static(path.join(__dirname, "public")));
+
 app.get("/", (req, res) => {
-  res.status(200).send("WHATABYTE: Food For Devs");
+  res.render("index", { title: "Home" });
+});
+
+app.get("/user", (req, res) => {
+  res.render("user", { title: "Profile", userProfile: { nickname: "Auth0" } });
 });
 
 app.listen(port, () => {
@@ -20,3 +28,4 @@ app.listen(port, () => {
 // handles GET HTTP requests made to the root path, /, and replies with a string. 
 // Finally, the Express app is set up to listen for HTTP requests in the port 
 // previously defined.
+
